@@ -7,10 +7,41 @@ $(function(){
     const $messageForm =  $('#message-form')
     const $messageBox = $("#message");
     const $chat   = $("#chat"); 
+    
+    const $nickForm = $('#nickForm');
+    const $nickError = $("#nickError");
+    const $nickname  = $("#nickname");
+
+    $nickForm.submit((e)=>{
+        e.preventDefault()
+        socket.emit('new user', $nickname.val(), (data) =>{
+            if(data){
+                $('#nickWrap').hide()
+                $('#contentWrap').show()
+            }else{
+                $nickError.html(`<div class="alert alert-danger">
+                    That username already exist
+                </div>`)
+            }
+            $nickname.val('')
+        })
+    })
     //escuchando el datos enciado por el servidor
     socket.on("new message", (data) =>{
-        $chat.append(data + "<br>")
+        $chat.append(`<b> ${data.nickname} </b>: ${data.msg } </br>`)
     });
+
+    socket.on('user name', (data) =>{
+        $("#username").empty();
+        
+        let html = '';
+        data.forEach(element => {
+            html += `<p> ${element} </p>`
+        });
+        $("#username").append(html);
+
+        
+    })
 
     // eventos 
     $messageForm.submit((e) =>{

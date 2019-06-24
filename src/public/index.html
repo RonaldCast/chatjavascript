@@ -15,25 +15,51 @@
     <nav class="navbar navbar-light bg-warning">
         <a href="/" class="navbar-brand mx-auto">JavaScript FullStack Chat </a>
     </nav>
+    <div class="card col-md-4 mt-5 mx-auto " id="nickWrap">
+        <div class="card-header">
+            <h3 class="text-center">Enter your Username</h3>
+        </div>
+        <p class="" id="nickError"></p>
+        <div class="card-body">
+            <form id="nickForm" >
+                <input type="text" id="nickname" class="form-control">
+                <input type="submit"   class="btn btn-warning btn-block mt-2 ">
 
-    <div class="container">
-        <div class="col-md-6 mt-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Let's Chat</h4>
-                </div>
-                <div id="chat" class="card-body"></div>
-                <form id="message-form" class="card-footer">
-                    <div class="input-group">
-                        <input type="text" name="" id="message" class="form-control">
-                        <div class="input-group-append">
-                            <input type="submit" class="btn btn-warning">
-                        </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="contentWrap">
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-1 ">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Let's Chat</h4>
                     </div>
-                   
-                </form>
+                    <div id="chat" class="card-body"></div>
+                    <form id="message-form" class="card-footer">
+                        <div class="input-group">
+                            <input type="text" name="" id="message" class="form-control">
+                            <div class="input-group-append">
+                                <input type="submit" class="btn btn-warning">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class=" col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Users</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="username"></div>
+                    </div>
+                </div>
             </div>
         </div>
+        
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
