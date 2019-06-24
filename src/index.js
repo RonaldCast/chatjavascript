@@ -1,5 +1,5 @@
 const http = require('http');
-
+const path = require('path');
 const express = require('express');
 const socketio  = require('socket.io');
 
@@ -12,20 +12,16 @@ const server = http.createServer(app)
 //y además se cree la conexion en tiempo real
 const io = socketio.listen(server)
  
-// para que se quede escuchando cuando 
-// existe una nueva conexion de socket
-// y envie un alert cada vez que se conecte un
-// usuario
-io.on('connection', socket)
+require('./socket')(io);
 
 // para enviarle el html al 
 //navegardor de manera estatica.  
 //static file 
-app.use(express.static('public'))
-
-
-
-
-server.listen(3000, () => {
-  console.log("Server on port 3000, http://localhost:3000");
+app.set('port', process.env.PORT || 3000)
+app.use(express.static(path.join(__dirname, "public")));
+ 
+server.listen(app.get('port'), () => {
+  console.log(
+    `Server on port ${app.get("port")}, http://localhost:${app.get("port")}`
+  );
 });
