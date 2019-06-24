@@ -33,24 +33,43 @@ $(function(){
 
     socket.on('user name', (data) =>{
         $("#username").empty();
-        
         let html = '';
         data.forEach(element => {
             html += `<p> ${element} </p>`
+            
         });
         $("#username").append(html);
 
         
     })
+    socket.on('whisper', data => {
+        $chat.append(`<p class="whisper"><b> ${data.nickname}:</b> ${data.msg}</p>`)
+    })
 
+    socket.on('load old msgs', data =>{
+        $chat.empty();
+        for(let i = 0; i < data.length; i++){
+            displayMessage(data[i])
+        }
+    })
+
+    function displayMessage(data){
+                $chat.append(
+                  `<p class="whisper"><b> ${
+                    data.nickname 
+                  }: </b> ${data.msg}</p>`
+                );
+
+    }
     // eventos 
     $messageForm.submit((e) =>{
         e.preventDefault();
         $messageBox.val();
         //creamos un evento
-        socket.emit('send message', $messageBox.val())
+        socket.emit('send message', $messageBox.val(), data =>{
+            $chat.append(`<p class="error">${data}</p>`)
+        })
         $messageBox.val('');
-
 
     })
 })

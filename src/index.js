@@ -3,7 +3,19 @@ const path = require('path');
 const express = require('express');
 const socketio  = require('socket.io');
 
+const mongoose = require('mongoose');
+
 const app = express()
+
+//db connection
+
+mongoose.connect('mongodb://localhost:27017/chat', {useNewUrlParser: true }) 
+  .then((db) =>{
+    console.log('db is connected')
+  })
+  .catch(error => {
+    console.log(error)
+  })
 
 // crear otro servidor
 //se hace esto para darle un servidor a socket.io para que funcione  
